@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <radialGradient id="bg4" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#113e2f"/>
+      <stop offset="100%" stop-color="#02140e"/>
+    </radialGradient>
+    <linearGradient id="gold4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff2c2"/>
+      <stop offset="100%" stop-color="#d29f42"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg4)"/>
+  <rect x="28" y="28" width="544" height="544" rx="18" fill="none" stroke="#e8c77b" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="8 8"/>
+  <g transform="translate(300,262)">
+    <rect x="-78" y="-36" width="156" height="118" rx="10" fill="#8f172f" stroke="url(#gold4)" stroke-width="3"/>
+    <rect x="-86" y="-58" width="172" height="28" rx="7" fill="#a81d38" stroke="url(#gold4)" stroke-width="3"/>
+    <rect x="-13" y="-58" width="26" height="140" fill="url(#gold4)"/>
+    <rect x="-78" y="8" width="156" height="22" fill="url(#gold4)"/>
+    <path d="M0,-58 C-42,-102 -68,-64 -10,-58 C42,-102 68,-64 10,-58" fill="none" stroke="url(#gold4)" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <text x="300" y="445" text-anchor="middle" fill="#ffe8a3" font-size="28" font-family="PingFang SC, Microsoft YaHei, serif" letter-spacing="4">礼盒藏喜 · 岁末欢歌</text>
+  <text x="300" y="492" text-anchor="middle" fill="#c7d8cf" font-size="20" font-family="PingFang SC, Microsoft YaHei, sans-serif">本地替换照片，保护隐私不上传云端</text>
+</svg>

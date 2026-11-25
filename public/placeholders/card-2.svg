@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <radialGradient id="bg2" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#0f4230"/>
+      <stop offset="100%" stop-color="#02150f"/>
+    </radialGradient>
+    <linearGradient id="gold2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff4cc"/>
+      <stop offset="50%" stop-color="#f0cd7a"/>
+      <stop offset="100%" stop-color="#c39134"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg2)"/>
+  <rect x="28" y="28" width="544" height="544" rx="18" fill="none" stroke="#e8c77b" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="8 8"/>
+  <circle cx="300" cy="250" r="96" fill="none" stroke="#e8c77b" stroke-opacity="0.3" stroke-width="2"/>
+  <polygon points="300,158 325,222 394,225 340,267 358,334 300,295 242,334 260,267 206,225 275,222" fill="url(#gold2)"/>
+  <circle cx="155" cy="160" r="5" fill="#fff0bd" opacity="0.75"/>
+  <circle cx="445" cy="145" r="4" fill="#fff0bd" opacity="0.65"/>
+  <circle cx="465" cy="360" r="5" fill="#fff0bd" opacity="0.7"/>
+  <text x="300" y="445" text-anchor="middle" fill="#ffe8a3" font-size="28" font-family="PingFang SC, Microsoft YaHei, serif" letter-spacing="4">璀璨星愿 · 专属瞬间</text>
+  <text x="300" y="492" text-anchor="middle" fill="#c7d8cf" font-size="20" font-family="PingFang SC, Microsoft YaHei, sans-serif">支持上传本地照片并自定义手写文字</text>
+</svg>

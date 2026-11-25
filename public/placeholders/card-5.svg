@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <radialGradient id="bg5" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#0d3c2d"/>
+      <stop offset="100%" stop-color="#02140e"/>
+    </radialGradient>
+    <radialGradient id="orb" cx="38%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#fff4cf"/>
+      <stop offset="45%" stop-color="#e8c36c"/>
+      <stop offset="100%" stop-color="#8c631c"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg5)"/>
+  <rect x="28" y="28" width="544" height="544" rx="18" fill="none" stroke="#e8c77b" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="8 8"/>
+  <g transform="translate(300,265)">
+    <line x1="0" y1="-125" x2="0" y2="-82" stroke="#e8c77b" stroke-width="3"/>
+    <rect x="-18" y="-86" width="36" height="20" rx="5" fill="#e8c77b"/>
+    <circle cx="0" cy="0" r="76" fill="url(#orb)"/>
+    <path d="M-72,-6 Q0,26 72,-6" fill="none" stroke="#fff6d6" stroke-width="4" opacity="0.65"/>
+    <path d="M-66,24 Q0,54 66,24" fill="none" stroke="#fff6d6" stroke-width="3" opacity="0.5"/>
+  </g>
+  <text x="300" y="445" text-anchor="middle" fill="#ffe8a3" font-size="28" font-family="PingFang SC, Microsoft YaHei, serif" letter-spacing="4">金辉彩球 · 拍立得框</text>
+  <text x="300" y="492" text-anchor="middle" fill="#c7d8cf" font-size="20" font-family="PingFang SC, Microsoft YaHei, sans-serif">可自由增删相框数量</text>
+</svg>

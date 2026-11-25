@@ -72,7 +72,9 @@ export const PhotoManagerModal: React.FC<PhotoManagerModalProps> = ({
         </div>
 
         <p style={{ fontSize: 12, color: 'rgba(246, 239, 226, 0.72)', lineHeight: 1.55 }}>
-          已预置您上传的温馨照片。您可以随时替换任意拍立得图片、修改下方手写文字说明，或新增更多照片挂上圣诞树。
+          {photos.some((p) => p.id.startsWith('placeholder-'))
+            ? '当前为默认圣诞留白相框。点击下方「更换图片」或「添加新照片」即可上传你自己的照片并修改手写文字说明（照片仅在你的浏览器本地生效，不会上传到服务器）。'
+            : '点击下方「更换图片」可随时替换任意拍立得照片、修改手写文字说明，或新增更多照片挂上圣诞树。'}
         </p>
 
         <div className="drawer-list">

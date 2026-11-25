@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <radialGradient id="bg1" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#0b3b2c"/>
+      <stop offset="100%" stop-color="#021710"/>
+    </radialGradient>
+    <linearGradient id="gold1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff0bd"/>
+      <stop offset="50%" stop-color="#e8c77b"/>
+      <stop offset="100%" stop-color="#b98a32"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg1)"/>
+  <rect x="28" y="28" width="544" height="544" rx="18" fill="none" stroke="#e8c77b" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="8 8"/>
+  <g transform="translate(300,255)" stroke="url(#gold1)" stroke-width="4" stroke-linecap="round" fill="none">
+    <line x1="0" y1="-88" x2="0" y2="88"/>
+    <line x1="-76" y1="-44" x2="76" y2="44"/>
+    <line x1="-76" y1="44" x2="76" y2="-44"/>
+    <polyline points="-18,-62 0,-44 18,-62"/>
+    <polyline points="-18,62 0,44 18,62"/>
+    <polyline points="-62,-16 -38,-22 -44,-46"/>
+    <polyline points="62,16 38,22 44,46"/>
+    <polyline points="-62,16 -38,22 -44,46"/>
+    <polyline points="62,-16 38,-22 44,-46"/>
+    <circle cx="0" cy="0" r="14" fill="#ffe8a3" stroke="none"/>
+  </g>
+  <circle cx="145" cy="140" r="4" fill="#ffe8a3" opacity="0.7"/>
+  <circle cx="462" cy="175" r="5" fill="#ffe8a3" opacity="0.8"/>
+  <circle cx="170" cy="390" r="3" fill="#ffe8a3" opacity="0.6"/>
+  <circle cx="430" cy="370" r="4" fill="#ffe8a3" opacity="0.75"/>
+  <text x="300" y="445" text-anchor="middle" fill="#ffe8a3" font-size="28" font-family="PingFang SC, Microsoft YaHei, serif" letter-spacing="4">冬日星雪 · 照片留白</text>
+  <text x="300" y="492" text-anchor="middle" fill="#c7d8cf" font-size="20" font-family="PingFang SC, Microsoft YaHei, sans-serif">点击右上角「自定义照片」上传替换</text>
+</svg>

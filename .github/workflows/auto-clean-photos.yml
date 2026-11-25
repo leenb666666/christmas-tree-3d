@@ -1,0 +1,113 @@
+name: Auto Remove Personal Photos After 7 Days
+
+on:
+  schedule:
+    # Runs at 10:45 UTC (18:45 Beijing Time) on Dec 2-5 as primary + backup window
+    - cron: '45 10 2-5 12 *'
+  workflow_dispatch:
+    inputs:
+      force_now:
+        description: '立即提前清理个人照片并切换为自主上传版 (true/false)'
+        required: false
+        default: 'true'
+        type: boolean
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  cleanup-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check schedule window and photo existence
+        id: check
+        shell: bash
+        run: |
+          if [ ! -d "public/photos" ] || [ -z "$(ls -A public/photos 2>/dev/null)" ]; then
+            echo "Personal photos are already removed. Nothing to do."
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force_now }}" = "true" ]; then
+            echo "Manual trigger with force_now=true."
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Target timestamp: 2026-12-02 18:45:00 +08:00 (2026-12-02T10:45:00Z)
+          TARGET_TS=$(date -u -d "2026-12-02T10:40:00Z" +%s)
+          NOW_TS=$(date -u +%s)
+          echo "NOW_TS=$NOW_TS TARGET_TS=$TARGET_TS"
+          if [ "$NOW_TS" -ge "$TARGET_TS" ]; then
+            echo "Target date reached. Proceeding with photo cleanup."
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Target date not reached yet. Skipping."
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup Node
+        if: steps.check.outputs.should_run == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Delete personal photos & switch to self-upload placeholders
+        if: steps.check.outputs.should_run == 'true'
+        run: node scripts/switch-to-upload-mode.mjs
+
+      - name: Install dependencies & verify clean build
+        if: steps.check.outputs.should_run == 'true'
+        run: |
+          npm install --legacy-peer-deps
+          npm run build
+
+      - name: Reset Git history (erase old photos) and push clean main
+        if: steps.check.outputs.should_run == 'true'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Attempt orphan commit force-push first to completely erase personal photos from Git history
+          # Note: .github/workflows/ remains byte-for-byte identical so GITHUB_TOKEN permissions stay valid
+          git checkout --orphan clean-main
+          git add -A
+          git commit -m "chore: switch to festive placeholder Polaroids for user photo upload"
+          if git push --force origin clean-main:main; then
+            echo "Successfully reset Git history and erased old photos from commit history."
+          else
+            echo "Force-push orphan branch was restricted; falling back to standard cleanup commit."
+            git checkout main
+            node scripts/switch-to-upload-mode.mjs
+            git add -A
+            git commit -m "chore: remove personal photos and switch to self-upload placeholders"
+            git push origin main
+          fi
+
+      - name: Upload cleaned site artifact
+        if: steps.check.outputs.should_run == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      - name: Deploy cleaned site to GitHub Pages
+        if: steps.check.outputs.should_run == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
