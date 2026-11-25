@@ -1,0 +1,466 @@
+:root {
+  --bg-deep: #01130e;
+  --emerald-glass: rgba(3, 28, 21, 0.72);
+  --emerald-glass-strong: rgba(2, 22, 16, 0.88);
+  --gold-accent: #e8c77b;
+  --gold-bright: #ffe6a3;
+  --gold-border: rgba(232, 199, 123, 0.32);
+  --gold-border-hover: rgba(255, 230, 163, 0.65);
+  --text-primary: #f6efe2;
+  --text-muted: rgba(246, 239, 226, 0.68);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+.app-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at 50% 42%, #05261c 0%, #01130e 65%, #000b08 100%);
+  overflow: hidden;
+}
+
+.canvas-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Luxury glass surfaces */
+.glass-panel {
+  background: var(--emerald-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--gold-border);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 236, 179, 0.08);
+}
+
+.glass-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 15px;
+  border-radius: 999px;
+  border: 1px solid var(--gold-border);
+  background: var(--emerald-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  white-space: nowrap;
+}
+
+.glass-btn:hover {
+  border-color: var(--gold-border-hover);
+  background: rgba(8, 46, 34, 0.85);
+  color: var(--gold-bright);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(232, 199, 123, 0.16);
+}
+
+.glass-btn:active {
+  transform: translateY(0);
+}
+
+.glass-btn.active {
+  background: linear-gradient(135deg, rgba(232, 199, 123, 0.28), rgba(186, 140, 52, 0.22));
+  border-color: var(--gold-bright);
+  color: var(--gold-bright);
+  box-shadow: 0 0 22px rgba(232, 199, 123, 0.28);
+}
+
+.glass-btn.primary-gold {
+  background: linear-gradient(135deg, #d7ae58 0%, #f3d68b 50%, #c8983c 100%);
+  border-color: #ffe8a8;
+  color: #091d16;
+  font-weight: 600;
+  box-shadow: 0 6px 24px rgba(232, 199, 123, 0.35);
+}
+
+.glass-btn.primary-gold:hover {
+  background: linear-gradient(135deg, #e5be69 0%, #ffe6a3 50%, #d4a64a 100%);
+  color: #04130e;
+  box-shadow: 0 8px 28px rgba(255, 224, 140, 0.48);
+}
+
+.glass-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* HUD layout */
+.hud-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 24px;
+}
+
+.hud-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.brand-card {
+  pointer-events: auto;
+  padding: 12px 18px;
+  border-radius: 16px;
+}
+
+.brand-title {
+  font-family: 'Georgia', 'Songti SC', 'STSong', serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, #fff2cc 0%, #e5be67 55%, #c5973b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.25;
+}
+
+.brand-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.top-actions {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hud-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+  min-height: 60px;
+}
+
+.bottom-dock {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hint-bar {
+  position: absolute;
+  bottom: 62px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: rgba(246, 239, 226, 0.72);
+  background: rgba(1, 19, 14, 0.62);
+  border: 1px solid rgba(232, 199, 123, 0.22);
+  padding: 5px 14px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Focused photo banner */
+.focused-photo-banner {
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--gold-bright);
+  z-index: 15;
+}
+
+/* Gesture preview card */
+.gesture-card {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  width: 248px;
+  border-radius: 16px;
+  padding: 10px;
+  pointer-events: auto;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gesture-video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #020e0a;
+  border: 1px solid rgba(232, 199, 123, 0.25);
+}
+
+.gesture-video-wrap video,
+.gesture-video-wrap canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+}
+
+.gesture-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(1, 19, 14, 0.78);
+  border: 1px solid rgba(232, 199, 123, 0.45);
+  color: var(--gold-bright);
+  backdrop-filter: blur(6px);
+}
+
+.gesture-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.gesture-legend span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.gesture-error-box {
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(127, 29, 29, 0.4);
+  border: 1px solid rgba(248, 113, 113, 0.45);
+  color: #fecaca;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Photo Manager Drawer */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 10, 7, 0.58);
+  backdrop-filter: blur(4px);
+  z-index: 40;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.drawer-panel {
+  width: min(440px, 94vw);
+  height: 100%;
+  background: var(--emerald-glass-strong);
+  border-left: 1px solid var(--gold-border);
+  box-shadow: -16px 0 48px rgba(0, 0, 0, 0.65);
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(232, 199, 123, 0.2);
+}
+
+.drawer-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--gold-bright);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drawer-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 4px;
+}
+
+.drawer-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.drawer-list::-webkit-scrollbar-thumb {
+  background: rgba(232, 199, 123, 0.28);
+  border-radius: 999px;
+}
+
+.photo-editor-card {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(5, 36, 27, 0.72);
+  border: 1px solid rgba(232, 199, 123, 0.22);
+  transition: border-color 0.2s;
+}
+
+.photo-editor-card:hover {
+  border-color: rgba(232, 199, 123, 0.45);
+}
+
+.photo-thumb-wrap {
+  width: 78px;
+  height: 92px;
+  border-radius: 6px;
+  background: #f8f4ea;
+  padding: 5px 5px 16px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.photo-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.photo-fields {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.field-input {
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(232, 199, 123, 0.25);
+  background: rgba(1, 18, 13, 0.75);
+  color: var(--text-primary);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.field-input:focus {
+  border-color: var(--gold-bright);
+}
+
+.photo-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mini-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(232, 199, 123, 0.28);
+  background: rgba(8, 44, 33, 0.8);
+  color: var(--text-primary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mini-btn:hover {
+  border-color: var(--gold-bright);
+  color: var(--gold-bright);
+}
+
+.mini-btn.danger:hover {
+  border-color: #f87171;
+  color: #fca5a5;
+  background: rgba(127, 29, 29, 0.45);
+}
+
+.drawer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(232, 199, 123, 0.2);
+}
+
+@media (max-width: 768px) {
+  .hud-overlay {
+    padding: 12px 14px;
+  }
+  .brand-title {
+    font-size: 16px;
+  }
+  .gesture-card {
+    left: 12px;
+    bottom: 84px;
+    width: 196px;
+  }
+  .hint-bar {
+    display: none;
+  }
+}
